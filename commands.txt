@@ -1,0 +1,60 @@
+# Iniciar
+
+activate alpr
+
+cd "C:\Users\jedua\OneDrive\Documents\Python Scripts\yolov7\"
+
+
+# Detectar com rede existente
+python detect.py --weights (rede ja treinada .pt) --conf (confiança threshold para detectar) --img-size (tamanho da imagem para entrar na rede) --source (local da imagem PATH completo)
+
+ex.:
+python detect.py --device 0 --weights "C:\Users\jedua\OneDrive\Documents\Python Scripts\yolov7\runs\train\yolov7_rede23\weights\best.pt" --conf 0.5 --img-size 640 --source "C:\Users\jedua\OneDrive\Bureau\casa.jpg"
+
+# Trainar rede nova
+
+python train.py --workers (cpu cores to manage data) --device (GPU = 0,1,2,... or cpu) --epochs (quantidade de epochs no treinamento) --batch-size (imagens por update de parametros) --data (local das imagens PATH) --img (tamanho das imagens) --cfg (local das config PATH + .yaml) --weights (local dos pesos pre-treinados PATH + .pt) --name (nome da rede) --hyp (local dos hiperparametros PATH + .yaml)
+
+ex.:
+# finetune p5 models
+python train.py --workers 8 --device 0 --epochs 40 --batch-size 32 --data data/custom.yaml --img 640 640 --cfg cfg/training/yolov7-custom.yaml --weights 'yolov7_training.pt' --name yolov7-custom --hyp data/hyp.scratch.custom.yaml --save_period 2
+
+# finetune p6 models
+python train_aux.py --workers 8 --device 0 --batch-size 16 --data data/custom.yaml --img 1280 1280 --cfg cfg/training/yolov7-w6-custom.yaml --weights 'yolov7-w6_training.pt' --name yolov7-w6-custom --hyp data/hyp.scratch.custom.yaml
+
+--weights', type=str, default='yolo7.pt', help='initial weights path')
+--cfg', type=str, default='', help='model.yaml path')
+--data', type=str, default='data/coco.yaml', help='data.yaml path')
+--hyp', type=str, default='data/hyp.scratch.p5.yaml', help='hyperparameters path')
+--epochs', type=int, default=300)
+--batch-size', type=int, default=16, help='total batch size for all GPUs')
+--img-size', nargs='+', type=int, default=[640, 640], help='[train, test] image sizes')
+--rect', action='store_true', help='rectangular training')
+--resume', nargs='?', const=True, default=False, help='resume most recent training')
+--nosave', action='store_true', help='only save final checkpoint')
+--notest', action='store_true', help='only test final epoch')
+--noautoanchor', action='store_true', help='disable autoanchor check')
+--evolve', action='store_true', help='evolve hyperparameters')
+--bucket', type=str, default='', help='gsutil bucket')
+--cache-images', action='store_true', help='cache images for faster training')
+--image-weights', action='store_true', help='use weighted image selection for training')
+--device', default='', help='cuda device, i.e. 0 or 0,1,2,3 or cpu')
+--multi-scale', action='store_true', help='vary img-size +/- 50%%')
+--single-cls', action='store_true', help='train multi-class data as single-class')
+--adam', action='store_true', help='use torch.optim.Adam() optimizer')
+--sync-bn', action='store_true', help='use SyncBatchNorm, only available in DDP mode')
+--local_rank', type=int, default=-1, help='DDP parameter, do not modify')
+--workers', type=int, default=8, help='maximum number of dataloader workers')
+--project', default='runs/train', help='save to project/name')
+--entity', default=None, help='W&B entity')
+--name', default='exp', help='save to project/name')
+--exist-ok', action='store_true', help='existing project/name ok, do not increment')
+--quad', action='store_true', help='quad dataloader')
+--linear-lr', action='store_true', help='linear LR')
+--label-smoothing', type=float, default=0.0, help='Label smoothing epsilon')
+--upload_dataset', action='store_true', help='Upload dataset as W&B artifact table')
+--bbox_interval', type=int, default=-1, help='Set bounding-box image logging interval for W&B')
+--save_period', type=int, default=-1, help='Log model after every "save_period" epoch')
+--artifact_alias', type=str, default="latest", help='version of dataset artifact to be used')
+--freeze', nargs='+', type=int, default=[0], help='Freeze layers: backbone of yolov7=50, first3=0 1 2')
+--v5-metric', action='store_true', help='assume maximum recall as 1.0 in AP calculation')

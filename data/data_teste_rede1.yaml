@@ -1,0 +1,6 @@
+train: D:/rede1_dataset/teste/train/images
+val: D:/rede1_dataset/teste/test/images
+test: D:/rede1_dataset/teste/test/images
+
+nc: 14
+names: ['moto_front', 'moto_back', 'moto_back_left', 'moto_back_right', 'moto_right',' moto_left', 'car_front', 'car_left', 'car_right', 'car_back', 'car_back_right', 'car_back_left', 'car_front_right', 'car_front_left']

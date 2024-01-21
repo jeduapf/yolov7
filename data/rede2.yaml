@@ -1,0 +1,6 @@
+train: "D:/rede2_dataset/exp2/train/images"
+val: "D:/rede2_dataset/exp2/valid/images"
+test: "D:/rede2_dataset/exp2/test/images"
+
+nc: 1
+names: ['License_Plate']
